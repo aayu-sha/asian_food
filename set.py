@@ -75,13 +75,14 @@ def inpaint_and_insert(img_path, pipeline, image_to_insert_path, output_image_pa
     
     # Calculate the position to insert the image
     x = (base_image.width - new_width) // 2  # Center horizontally
-    y = (base_image.height - new_height) // 2  # Center vertically
+    y = 20*(base_image.height - new_height) // 23  # Center vertically
     
     # Paste the resized image onto the base image
     base_image.paste(resized_image, (x, y), resized_image)
     
     # Save the output image
     base_image.save(output_image_path)
+
 
 # Iterate through each image file in the input folder
 for image_file in image_files:
@@ -93,8 +94,8 @@ for image_file in image_files:
     output_image_path = os.path.join(output_folder_path, f'output_{image_file}')  # Output image path
     
     # Set the maximum width and height if needed
-    max_width = 800
-    max_height = 600
+    max_width = 150
+    max_height = 80
     
     # Call the inpaint_and_insert function for each image
     inpaint_and_insert(img_path, pipeline, image_to_insert_path, output_image_path, max_width, max_height)

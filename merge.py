@@ -76,11 +76,11 @@ def inpaint_and_insert(img_path, pipeline, image_to_insert_path, output_image_pa
 pipeline = keras_ocr.pipeline.Pipeline()
 
 # Call the inpaint_and_insert function with your image path and pipeline
-img_path = 'WEB_Image_LOTUS_Purple_yams_mashed_20x500_Khoai_mo_2081481197163044_plid_8636.jpeg'
+img_path = 'images_from_website/WEB_Image_Black_Tiger_HLSO_Blokk_shrimp_21_25_Tom__20203223242782_plid_8438.jpeg'
 image_to_insert_path = 'image001.png'
 output_image_path = 'output_image.jpg'
-max_width = 800  # Set the maximum width
-max_height = 600  # Set the maximum height
+max_width = 100  # Set the maximum width
+max_height = 80  # Set the maximum height
 
 inpaint_and_insert(img_path, pipeline, image_to_insert_path, output_image_path, max_width, max_height)
 
