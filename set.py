@@ -94,8 +94,8 @@ for image_file in image_files:
     output_image_path = os.path.join(output_folder_path, f'output_{image_file}')  # Output image path
     
     # Set the maximum width and height if needed
-    max_width = 150
-    max_height = 80
+    max_width = 100
+    max_height = 65
     
     # Call the inpaint_and_insert function for each image
     inpaint_and_insert(img_path, pipeline, image_to_insert_path, output_image_path, max_width, max_height)
