@@ -12,7 +12,7 @@ def midpoint(x1, y1, x2, y2):
     return (x_mid, y_mid)
 
 # Define the folder containing your images
-input_folder_path = 'product_images/drive-download-20240509T030230Z-001'
+input_folder_path = 'images_from_website'
 output_folder_path = 'output'
 
 # Get a list of all files in the input folder
@@ -49,10 +49,11 @@ def inpaint_and_insert(img_path, pipeline, image_to_insert_path, output_image_pa
             cv2.line(mask, (x_mid0, y_mid0), (x_mid1, y_mid1), 255, thickness)
     
     # Inpaint using the mask
-    inpainted_img = cv2.inpaint(img, mask, 7, cv2.INPAINT_NS)
+    inpainted_img = cv2.inpaint(img, mask, 3, cv2.INPAINT_NS)
     
     # Open the base image
-    base_image = Image.fromarray(cv2.cvtColor(inpainted_img, cv2.COLOR_BGR2RGB))
+    base_image = Image.fromarray(inpainted_img)
+
     
     # Open the image to insert and remove transparent background
     image_to_insert = Image.open(image_to_insert_path).convert('RGBA')

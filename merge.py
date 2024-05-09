@@ -32,10 +32,12 @@ def inpaint_and_insert(img_path, pipeline, image_to_insert_path, output_image_pa
             cv2.line(mask, (x_mid0, y_mid0), (x_mid1, y_mid1), 255, thickness)
     
     # Inpaint using the mask
-    inpainted_img = cv2.inpaint(img, mask, 7, cv2.INPAINT_NS)
+    inpainted_img = cv2.inpaint(img, mask, 3, cv2.INPAINT_NS)
+
     
     # Open the base image
-    base_image = Image.fromarray(cv2.cvtColor(inpainted_img, cv2.COLOR_BGR2RGB))
+    base_image = Image.fromarray(inpainted_img)
+
     
     # Open the image to insert and remove transparent background
     image_to_insert = Image.open(image_to_insert_path)
@@ -76,11 +78,11 @@ def inpaint_and_insert(img_path, pipeline, image_to_insert_path, output_image_pa
 pipeline = keras_ocr.pipeline.Pipeline()
 
 # Call the inpaint_and_insert function with your image path and pipeline
-img_path = 'images_from_website/WEB_Image_YOPOKKI_Inst_Black_soybean_Topokki_CUP_B_101246-1377416525.jpeg'
+img_path = 'product_images/product_images-20240509T030131Z-001/product_images/101002.jpeg'
 image_to_insert_path = 'image001.png'
 output_image_path = 'output_image.jpg'
-max_width = 65  # Set the maximum width
-max_height = 50  # Set the maximum height
+max_width = 400 # Set the maximum width
+max_height = 500  # Set the maximum height
 
 inpaint_and_insert(img_path, pipeline, image_to_insert_path, output_image_path, max_width, max_height)
 
