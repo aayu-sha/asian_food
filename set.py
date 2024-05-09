@@ -6,20 +6,20 @@ import numpy as np
 from PIL import Image
 import keras_ocr
 
-# Define the folder containing your images
-input_folder_path = "https://drive.google.com/drive/folders/1zMJwAYa3vZ4Bl6J77YzJemL7iqwZAAzc?usp=sharing"
-output_folder_path = 'g-output'
-image_files = [f for f in os.listdir(input_folder_path) if os.path.isfile(os.path.join(input_folder_path, f))]
-
-
-# Create the keras_ocr pipeline
-pipeline = keras_ocr.pipeline.Pipeline()
-
 def midpoint(x1, y1, x2, y2):
     x_mid = int((x1 + x2) / 2)
     y_mid = int((y1 + y2) / 2)
     return (x_mid, y_mid)
 
+# Define the folder containing your images
+input_folder_path = 'product_images/drive-download-20240509T030230Z-001'
+output_folder_path = 'output'
+
+# Get a list of all files in the input folder
+image_files = [f for f in os.listdir(input_folder_path) if os.path.isfile(os.path.join(input_folder_path, f))]
+
+# Create the keras_ocr pipeline
+pipeline = keras_ocr.pipeline.Pipeline()
 
 def inpaint_and_insert(img_path, pipeline, image_to_insert_path, output_image_path, max_width=None, max_height=None):
     # Read the image using keras_ocr tools
@@ -83,18 +83,19 @@ def inpaint_and_insert(img_path, pipeline, image_to_insert_path, output_image_pa
     # Save the output image
     base_image.save(output_image_path)
 
+
+# Iterate through each image file in the input folder
 for image_file in image_files:
     # Construct the full path to the input image file
     img_path = os.path.join(input_folder_path, image_file)
     
     # Define the paths for output and the image to insert
-    image_to_insert_path = '/content/drive/MyDrive/image001.png'  # Adjust path to the image you want to insert
+    image_to_insert_path = 'image001.png'  # Path to the image you want to insert
     output_image_path = os.path.join(output_folder_path, f'output_{image_file}')  # Output image path
     
     # Set the maximum width and height if needed
-    max_width = 80
-    max_height = 65
+    max_width = 400
+    max_height = 600
     
     # Call the inpaint_and_insert function for each image
     inpaint_and_insert(img_path, pipeline, image_to_insert_path, output_image_path, max_width, max_height)
-
