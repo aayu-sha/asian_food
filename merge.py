@@ -78,7 +78,7 @@ def inpaint_and_insert(img_path, pipeline, image_to_insert_path, output_image_pa
 pipeline = keras_ocr.pipeline.Pipeline()
 
 # Call the inpaint_and_insert function with your image path and pipeline
-img_path = 'product_images/product_images-20240509T030131Z-001/product_images/101002.jpeg'
+img_path = 'images_from_website/101004.jpeg'
 image_to_insert_path = 'image001.png'
 output_image_path = 'output_image.jpg'
 max_width = 400 # Set the maximum width

@@ -1,39 +1,35 @@
-import openpyxl
-from openpyxl.drawing.image import Image as ExcelImage
-from PIL import Image as PILImage
 import os
+import pandas as pd
+from PIL import Image
+import base64
 
-# Create a new Excel workbook
-wb = openpyxl.Workbook()
-sheet = wb.active
-
-# Path to the folder containing the images
+# Specify the path to the folder containing images
 folder_path = 'output'
 
-# Get a list of all files in the folder
-files = os.listdir(folder_path)
+# Initialize lists to store image names and base64 encoded images
+image_names = []
+base64_images = []
 
-# Initialize row counter
-row = 1
-
-# Loop through the files in the folder
-for file_name in files:
-    # Check if the file is an image (you can add more image extensions if needed)
-    if file_name.lower().endswith(('.jpg', '.jpeg', '.png')):
+# Iterate through the files in the folder
+for filename in os.listdir(folder_path):
+    if filename.endswith('.jpg') or filename.endswith('.jpeg') or filename.endswith('.png'):
         # Load the image using PIL
-        img = PILImage.open(os.path.join(folder_path, file_name))
-        
-        # Resize the image if needed
-        img = img.resize((50,50))  # Specify the desired width and height
-        
-        # Create an ExcelImage object from the PIL image
-        excel_img = ExcelImage(img)
-        
-        # Add the image to the Excel sheet
-        sheet.add_image(excel_img, f'A{row}')
-        
-        # Update the row counter
-        row += 1
+        img = Image.open(os.path.join(folder_path, filename))
 
-# Save the Excel workbook
-wb.save('images.xlsx')
+        # Convert the image to base64 format
+        with open(os.path.join(folder_path, filename), "rb") as image_file:
+            base64_encoded_image = base64.b64encode(image_file.read()).decode('utf-8')
+
+        # Add image name and base64 encoded image to the lists
+        image_names.append(filename)
+        base64_images.append(base64_encoded_image)
+
+# Create a Pandas DataFrame with image names and base64 encoded images
+data = {'Image Name': image_names, 'Base64 Image': base64_images}
+df = pd.DataFrame(data)
+
+# Save the DataFrame to an Excel file
+excel_file_path = 'file.xlsx'
+df.to_excel(excel_file_path, index=False)
+
+print('Images saved to Excel file as base64 encoded strings.')
