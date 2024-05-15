@@ -41,10 +41,10 @@ def insert_image_above(base_image_path, image_to_insert_path, output_image_path,
     base_image.save(output_image_path)
 
 # Example usage with maximum width and height
-base_image_path = 'removed_image.jpg'
+base_image_path = 'IMG-20240515-WA0020.jpg'
 image_to_insert_path = 'image001.png'
 output_image_path = 'output_image.jpg'
-max_width = 800  # Set the maximum width
-max_height = 600  # Set the maximum height
+max_width = 300  # Set the maximum width
+max_height = 200  # Set the maximum height
 
 insert_image_above(base_image_path, image_to_insert_path, output_image_path, max_width, max_height)
